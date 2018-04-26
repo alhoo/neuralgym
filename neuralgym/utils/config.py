@@ -18,10 +18,11 @@ class LoaderMeta(type):
         return cls
 
 
-class Loader(yaml.Loader, metaclass=LoaderMeta):
+class Loader(yaml.Loader):
     """YAML Loader with `!include` constructor."""
 
     def __init__(self, stream):
+        __metaclass__ = LoaderMeta
         try:
             self._root = os.path.split(stream.name)[0]
         except AttributeError:
